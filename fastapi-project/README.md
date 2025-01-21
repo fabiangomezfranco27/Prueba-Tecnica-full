@@ -40,7 +40,7 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 5. Ejecuta el servidor de desarrollo:
 
    ```bash
-   uvicorn app.main:app --reload --host 0.0.0.0 port 8000
+   uvicorn app.main:app --reload
    ```
 
 ## Configuración del Frontend
@@ -48,6 +48,7 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 1. Navega al directorio del frontend(desde la raiz del proyecto):
 
    ```bash
+   cd Prueba-Tecnica-full
    cd my-react-app
    ```
 
