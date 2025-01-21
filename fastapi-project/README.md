@@ -48,7 +48,6 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 1. Navega al directorio del frontend(desde la raiz del proyecto):
 
    ```bash
-   cd Prueba-Tecnica-full
    cd my-react-app
    ```
 
