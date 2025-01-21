@@ -14,7 +14,6 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 
    ```bash
    git clone https://github.com/fabiangomezfranco27/Prueba-Tecnica-full.git
-   cd Prueba-Tecnica-Ingeniero-Fullstack
    ```
 
 2. Crea y activa un entorno virtual:
@@ -40,7 +39,7 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 5. Ejecuta el servidor de desarrollo:
 
    ```bash
-   uvicorn app.main:app --reload --host 0.0.0.0 port 8000
+   uvicorn app.main:app --reload
    ```
 
 ## Configuración del Frontend

@@ -14,7 +14,6 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 
    ```bash
    git clone https://github.com/fabiangomezfranco27/Prueba-Tecnica-full.git
-   cd Prueba-Tecnica-Ingeniero-Fullstack
    ```
 
 2. Crea y activa un entorno virtual:
@@ -48,7 +47,6 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 1. Navega al directorio del frontend(desde la raiz del proyecto):
 
    ```bash
-   cd Prueba-Tecnica-Ingeniero-Fullstack
    cd my-react-app
    ```
 
@@ -65,6 +63,10 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
    ```
 
 La aplicación se abrirá en `http://localhost:3000`.
+
+Accede a la documentación de la API en:
+
+http://localhost:8000/docs
 
 ## Uso de la API
 
