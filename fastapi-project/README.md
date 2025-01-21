@@ -14,6 +14,7 @@ Este proyecto es una aplicación web construida con FastAPI y React. La aplicaci
 
    ```bash
    git clone https://github.com/fabiangomezfranco27/Prueba-Tecnica-full.git
+   cd Prueba-Tecnica-full
    ```
 
 2. Crea y activa un entorno virtual:
