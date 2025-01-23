@@ -1,76 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Container, Typography, Box } from '@mui/material';
-import api from '../services/api';
-
-interface Task {
-    id: number;
-    title: string;
-    description: string;
-    dueDate: string;
-    completed: boolean;
-}
+import {
+    Container,
+    Typography,
+    TextField,
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemSecondaryAction,
+    IconButton,
+    Box,
+    CircularProgress
+} from '@mui/material';
+import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
+import { useTaskContext } from '../contexts/TaskContext';
 
 const TaskManager: React.FC = () => {
-    const [tasks, setTasks] = useState<string[]>([]);
-    const [newTask, setNewTask] = useState<string>('');
+    const { tasks, loading, error, createTask, deleteTask } = useTaskContext();
+    const [newTask, setNewTask] = useState('');
 
-    useEffect(() => {
-        fetchTasks();
-    }, []);
-
-    const fetchTasks = async () => {
+    const handleAddTask = async () => {
+        if (!newTask.trim()) return;
+        
         try {
-            const response = await axios.get('/api/tasks');
-            setTasks(response.data as string[]);
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-        }
-    };
-
-    const addTask = async () => {
-        if (!newTask) {
-            return;
-        }
-
-        try {
-            await axios.post('/api/tasks', { task: newTask });
+            // Obtener el userId del usuario actual
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            await createTask({
+                title: newTask,
+                description: '',
+                dueDate: new Date().toISOString(),
+                completed: false,
+                userId: user.id // Agregamos el userId
+            });
             setNewTask('');
-            fetchTasks();
         } catch (error) {
             console.error('Error adding task:', error);
         }
     };
 
-    const deleteTask = async (taskToDelete: string) => {
-        try {
-            await axios.delete(`/api/tasks/${taskToDelete}`);
-            fetchTasks();
-        } catch (error) {
-            console.error('Error deleting task:', error);
-        }
-    };
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" mt={4}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
-        <div>
-            <h1>Gestor de Tareas</h1>
-            <input
-                type="text"
-                value={newTask}
-                onChange={(e) => setNewTask(e.target.value)}
-                placeholder="Nueva tarea"
-                />
-            <button onClick={addTask}>"Agregar Tarea"</button>
-            <ul>
-                {tasks.map((task) => (
-                    <li key={task}>
-                        {task}
-                        <button onClick={() => deleteTask(task)}>"Eliminar"</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container maxWidth="sm">
+            <Box sx={{ mt: 4 }}>
+                <Typography variant="h4" gutterBottom>
+                    Gestor de Tareas
+                </Typography>
+                
+                <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
+                    <TextField
+                        fullWidth
+                        value={newTask}
+                        onChange={(e) => setNewTask(e.target.value)}
+                        placeholder="Nueva tarea"
+                        variant="outlined"
+                        size="small"
+                    />
+                    <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                        onClick={handleAddTask}
+                    >
+                        Agregar
+                    </Button>
+                </Box>
+
+                <List>
+                    {tasks.map((task) => (
+                        <ListItem key={task.id} divider>
+                            <ListItemText primary={task.title} />
+                            <ListItemSecondaryAction>
+                                <IconButton
+                                    edge="end"
+                                    onClick={() => deleteTask(task.id)}
+                                    color="error"
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
+        </Container>
     );
 };
 

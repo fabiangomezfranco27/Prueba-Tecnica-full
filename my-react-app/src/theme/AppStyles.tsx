@@ -3,8 +3,9 @@ import { Container, Box, Paper } from '@mui/material';
 import '@fontsource/roboto'; // Importa la fuente por defecto de MUI
 
 // Definición del tema
-const theme = createTheme({
+export const theme = createTheme({
     palette: {
+        mode: 'light',
         primary: {
             main: '#1976d2',
             light: '#42a5f5',
@@ -17,29 +18,42 @@ const theme = createTheme({
             dark: '#7b1fa2',
             contrastText: '#ffffff'
         },
-        error: {
-            main: '#d32f2f',
-            light: '#ef5350',
-            dark: '#c62828'
+        background: {
+            default: '#f5f5f5',
+            paper: '#ffffff'
         }
     },
-    typography: {
-        fontFamily: [
-            'Roboto',
-            'Arial',
-            'sans-serif'
-        ].join(','),
-        h1: { fontSize: '2.5rem', fontWeight: 500 },
-        h2: { fontSize: '2rem', fontWeight: 500 },
-        h3: { fontSize: '1.75rem', fontWeight: 500 },
-        h4: { fontSize: '1.5rem', fontWeight: 500 },
-        h5: { fontSize: '1.25rem', fontWeight: 500 },
-        h6: { fontSize: '1rem', fontWeight: 500 }
-    },
-    shape: {
-        borderRadius: 8
-    },
-    spacing: 8
+    components: {
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    margin: 0,
+                    padding: 0,
+                    boxSizing: 'border-box',
+                    minHeight: '100vh'
+                }
+            }
+        },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    paddingTop: '24px',
+                    paddingBottom: '24px'
+                }
+            }
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    transition: 'box-shadow 0.3s ease-in-out',
+                    '&:hover': {
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+                    }
+                }
+            }
+        }
+    }
 });
 
 // Componentes estilizados
@@ -101,5 +115,3 @@ export const MainContainer = styled(Container)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
 }));
-
-export { theme };
